@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CareerTrack | Add Application</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <h2>CareerTrack</h2>
+
+        <nav>
+    <a href="/">Dashboard</a>
+    <a href="/applications">Applications</a>
+    <a href="/add" class="active">Add Application</a>
+    <a href="/settings">Settings</a>
+</nav>
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Add Application</h1>
+                <p>Save a new job application to your CareerTrack.</p>
+            </div>
+        </header>
+
+
+        <section class="applications">
+
+            <form method="POST" action="/add">
+
+                <div class="form-group">
+                    <label>Company Name *</label>
+                    <input type="text" name="company" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Job Position *</label>
+                    <input type="text" name="position" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" name="location">
+                </div>
+
+                <div class="form-group">
+                    <label>Job Type</label>
+                    <select name="job_type">
+                        <option value="">Select Job Type</option>
+                        <option value="Full Time">Full Time</option>
+                        <option value="Part Time">Part Time</option>
+                        <option value="Internship">Internship</option>
+                        <option value="Contract">Contract</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Salary</label>
+                    <input type="text" name="salary" placeholder="e.g. 50,000 PKR">
+                </div>
+
+                <div class="form-group">
+                    <label>Applied Date</label>
+                    <input type="date" name="applied_date">
+                </div>
+
+                <div class="form-group">
+                    <label>Status *</label>
+                    <select name="status" required>
+                        <option value="Applied">Applied</option>
+                        <option value="Interview">Interview</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Selected">Selected</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Job URL</label>
+                    <input type="url" name="job_url" placeholder="https://...">
+                </div>
+
+                <div class="form-group">
+                    <label>Contact Person</label>
+                    <input type="text" name="contact_person">
+                </div>
+
+                <div class="form-group">
+                    <label>Interview Date</label>
+                    <input type="date" name="interview_date">
+                </div>
+
+                <div class="form-group">
+                    <label>Follow-up Date</label>
+                    <input type="date" name="follow_up_date">
+                </div>
+
+                <div class="form-group">
+                    <label>Notes</label>
+                    <textarea name="notes" rows="5"
+                              placeholder="Add any useful notes..."></textarea>
+                </div>
+
+                <button type="submit" class="add-btn">
+                    Save Application
+                </button>
+
+            </form>
+
+        </section>
+
+    </main>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

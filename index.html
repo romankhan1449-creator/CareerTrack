@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CareerTrack | Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <h2>CareerTrack</h2>
+
+        <nav>
+
+            <a href="/" class="active">
+                <span>⌂</span>
+                Dashboard
+            </a>
+            <a href="/applications">
+                <span>▣</span>
+                Applications
+            </a>
+
+            <a href="/add">
+                <span>＋</span>
+                Add Application
+            </a>
+
+            <a href="/settings">
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div>
+                <p class="page-label">CAREER OVERVIEW</p>
+
+                <h1>Dashboard</h1>
+
+                <p>
+                    Track your job applications, interviews and career progress.
+                </p>
+            </div>
+
+            <a href="/add" class="add-btn">
+                + Add Application
+            </a>
+
+        </header>
+
+
+     <section class="stats">
+
+    <div class="card">
+        <h3>Total Applications</h3>
+        <p>{{ total }}</p>
+        <span class="card-subtitle">All applications</span>
+    </div>
+
+    <div class="card">
+        <h3>Active Applications</h3>
+        <p>{{ active }}</p>
+        <span class="card-subtitle">Currently in progress</span>
+    </div>
+
+    <div class="card">
+        <h3>Interviews</h3>
+        <p>{{ interviews }}</p>
+        <span class="card-subtitle">Interview stage</span>
+    </div>
+
+    <div class="card">
+        <h3>Success Rate</h3>
+        <p>{{ success_rate }}%</p>
+        <span class="card-subtitle">Selected applications</span>
+    </div>
+
+</section> 
+<!-- Upcoming Activity -->
+
+<section class="upcoming-dashboard">
+
+    <div class="upcoming-card">
+
+        <div class="upcoming-card-header">
+            <div>
+                <h2>Upcoming Interviews</h2>
+                <p>Scheduled interviews</p>
+            </div>
+        </div>
+
+        {% if upcoming_interviews %}
+
+            {% for interview in upcoming_interviews %}
+
+            <div class="activity-row">
+
+                <div class="activity-icon interview-icon">
+                    I
+                </div>
+
+                <div class="activity-info">
+                    <strong>{{ interview["company"] }}</strong>
+                    <span>{{ interview["position"] }}</span>
+                </div>
+
+                <div class="activity-date">
+                    <small>Interview</small>
+                    <strong>{{ interview["interview_date"] }}</strong>
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="no-activity">
+                <strong>No upcoming interviews</strong>
+                <span>Scheduled interviews will appear here.</span>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="upcoming-card">
+
+        <div class="upcoming-card-header">
+            <div>
+                <h2>Follow-ups</h2>
+                <p>Applications to follow up</p>
+            </div>
+        </div>
+
+        {% if upcoming_followups %}
+
+            {% for followup in upcoming_followups %}
+
+            <div class="activity-row">
+
+                <div class="activity-icon followup-icon">
+                    F
+                </div>
+
+                <div class="activity-info">
+                    <strong>{{ followup["company"] }}</strong>
+                    <span>{{ followup["position"] }}</span>
+                </div>
+
+                <div class="activity-date">
+                    <small>Follow-up</small>
+                    <strong>{{ followup["follow_up_date"] }}</strong>
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="no-activity">
+                <strong>No follow-ups scheduled</strong>
+                <span>Follow-up dates will appear here.</span>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+        <!-- =========================
+             DASHBOARD GRID
+        ========================== -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- Application Overview -->
+
+            <div class="dashboard-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h2>Application Overview</h2>
+
+                        <p>
+                            Your current job search activity
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="overview-content">
+
+                    <div class="overview-number">
+                        {{ total }}
+                    </div>
+
+                    <div class="overview-text">
+                        <strong>Total Applications</strong>
+
+                        <span>
+                            Keep applying and track every opportunity.
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="progress-section">
+
+                    <div class="progress-label">
+                        <span>Application Activity</span>
+                        <span>{{ total }} applications</span>
+                    </div>
+
+                       <div class="progress-bar">
+    <div class="progress-fill" style="width: 100%;"></div>
+</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Status Overview -->
+
+            <div class="dashboard-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h2>Status Overview</h2>
+
+                        <p>
+                            Application pipeline
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="status-list">
+
+                    <div class="status-item">
+
+                        <div class="status-left">
+                            <span class="status-dot applied"></span>
+                            <span>Applied</span>
+                        </div>
+
+                        <strong>
+                            {{ total - interviews - selected - rejected }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="status-item">
+
+                        <div class="status-left">
+                            <span class="status-dot interview"></span>
+                            <span>Interview</span>
+                        </div>
+
+                        <strong>
+                            {{ interviews }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="status-item">
+
+                        <div class="status-left">
+                            <span class="status-dot selected"></span>
+                            <span>Selected</span>
+                        </div>
+
+                        <strong>
+                            {{ selected }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="status-item">
+
+                        <div class="status-left">
+                            <span class="status-dot rejected"></span>
+                            <span>Rejected</span>
+                        </div>
+
+                        <strong>
+                            {{ rejected }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =========================
+             RECENT APPLICATIONS
+        ========================== -->
+
+        <section class="applications">
+
+            <div class="section-header">
+
+                <div>
+                    <h2>Recent Applications</h2>
+
+                    <p class="section-description">
+                        Your latest job applications
+                    </p>
+                </div>
+
+                <a href="/applications">
+                    View All →
+                </a>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Company</th>
+                            <th>Position</th>
+                            <th>Status</th>
+                            <th>Applied Date</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% if applications %}
+
+                            {% for application in applications %}
+
+                            <tr>
+
+                                <td>
+                                    <strong>
+                                        {{ application["company"] }}
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    {{ application["position"] }}
+                                </td>
+
+                                <td>
+
+                                    {% if application["status"] == "Applied" %}
+
+                                        <span class="status-badge applied-badge">
+                                            Applied
+                                        </span>
+
+                                    {% elif application["status"] == "Interview" %}
+
+                                        <span class="status-badge interview-badge">
+                                            Interview
+                                        </span>
+
+                                    {% elif application["status"] == "Selected" %}
+
+                                        <span class="status-badge selected-badge">
+                                            Selected
+                                        </span>
+
+                                    {% elif application["status"] == "Rejected" %}
+
+                                        <span class="status-badge rejected-badge">
+                                            Rejected
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="status-badge pending-badge">
+                                            {{ application["status"] }}
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+                                <td>
+                                    {{ application["applied_date"] or "—" }}
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        {% else %}
+
+                            <tr>
+
+                                <td colspan="4" class="empty-state">
+
+                                    <div class="empty-icon">
+                                        ▣
+                                    </div>
+
+                                    <strong>No applications yet</strong>
+
+                                    <span>
+                                        Start tracking your job applications.
+                                    </span>
+
+                                    <a href="/add" class="add-btn">
+                                        Add Your First Application
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        {% endif %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</body>
+</html>

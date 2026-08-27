@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CareerTrack | Applications</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <h2>CareerTrack</h2>
+
+        <nav>
+
+            <a href="/">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="/applications" class="active">
+                <span>▣</span>
+                Applications
+            </a>
+
+            <a href="/add">
+                <span>＋</span>
+                Add Application
+            </a>
+
+            <a href="/settings">
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="page-label">
+                    CAREER MANAGEMENT
+                </p>
+
+                <h1>
+                    Applications
+                </h1>
+
+                <p>
+                    Manage and track all your job applications.
+                </p>
+
+            </div>
+
+
+            <a href="/add" class="add-btn">
+                + Add Application
+            </a>
+
+        </header>
+
+
+        <!-- =========================
+             APPLICATIONS SECTION
+        ========================== -->
+
+        <section class="applications">
+
+            <!-- Section heading -->
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        All Applications
+                    </h2>
+
+                    <p class="section-description">
+                        View, search and manage your applications.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 SEARCH & FILTER
+            ========================== -->
+
+            <div class="application-toolbar">
+
+                <div class="search-wrapper">
+
+                    <span class="search-icon">
+                        ⌕
+                    </span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search company or position..."
+                        onkeyup="filterApplications()"
+                    >
+
+                </div>
+
+
+                <select
+                    id="statusFilter"
+                    onchange="filterApplications()"
+                >
+
+                    <option value="">
+                        All Statuses
+                    </option>
+
+                    <option value="Applied">
+                        Applied
+                    </option>
+
+                    <option value="Interview">
+                        Interview
+                    </option>
+
+                    <option value="Pending">
+                        Pending
+                    </option>
+
+                    <option value="Selected">
+                        Selected
+                    </option>
+
+                    <option value="Rejected">
+                        Rejected
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- =========================
+                 APPLICATION TABLE
+            ========================== -->
+
+            <div class="table-container">
+
+                <table id="applicationsTable">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                COMPANY
+                            </th>
+
+                            <th>
+                                POSITION
+                            </th>
+
+                            <th>
+                                LOCATION
+                            </th>
+
+                            <th>
+                                STATUS
+                            </th>
+
+                            <th>
+                                APPLIED DATE
+                            </th>
+
+                            <th>
+                                ACTIONS
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% if applications %}
+
+                            {% for application in applications %}
+
+                            <tr>
+
+                                <!-- Company -->
+
+                                <td>
+
+                                    <div class="company-cell">
+
+                                        <div class="company-avatar">
+                                            {{ application["company"][0] | upper }}
+                                        </div>
+
+                                        <div class="company-info">
+
+                                            <strong>
+                                                {{ application["company"] }}
+                                            </strong>
+
+                                            <span>
+                                                Job Application
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- Position -->
+
+                                <td>
+
+                                    <span class="position-text">
+                                        {{ application["position"] }}
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Location -->
+
+                                <td>
+
+                                    <span class="location-text">
+                                        {{ application["location"] or "—" }}
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Status -->
+
+                                <td>
+
+                                    {% if application["status"] == "Applied" %}
+
+                                        <span class="status-badge applied-badge">
+                                            <span class="badge-dot"></span>
+                                            Applied
+                                        </span>
+
+                                    {% elif application["status"] == "Interview" %}
+
+                                        <span class="status-badge interview-badge">
+                                            <span class="badge-dot"></span>
+                                            Interview
+                                        </span>
+
+                                    {% elif application["status"] == "Selected" %}
+
+                                        <span class="status-badge selected-badge">
+                                            <span class="badge-dot"></span>
+                                            Selected
+                                        </span>
+
+                                    {% elif application["status"] == "Rejected" %}
+
+                                        <span class="status-badge rejected-badge">
+                                            <span class="badge-dot"></span>
+                                            Rejected
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="status-badge pending-badge">
+                                            <span class="badge-dot"></span>
+                                            {{ application["status"] }}
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- Applied Date -->
+
+                                <td>
+
+                                    <span class="date-text">
+                                        {{ application["applied_date"] or "—" }}
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Actions -->
+
+                                <td>
+
+                                    <div class="action-buttons">
+
+                                        <a
+                                            href="/edit/{{ application['id'] }}"
+                                            class="edit-btn"
+                                        >
+                                            Edit
+                                        </a>
+
+
+                                        <a
+                                            href="/delete/{{ application['id'] }}"
+                                            class="delete-btn"
+                                            onclick="return confirm('Are you sure you want to delete this application?')"
+                                        >
+                                            Delete
+                                        </a>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+
+                        {% else %}
+
+                            <tr>
+
+                                <td
+                                    colspan="6"
+                                    class="empty-state"
+                                >
+
+                                    <div class="empty-icon">
+                                        ▣
+                                    </div>
+
+                                    <strong>
+                                        No applications yet
+                                    </strong>
+
+                                    <span>
+                                        Start tracking your job applications.
+                                    </span>
+
+                                    <a
+                                        href="/add"
+                                        class="add-btn"
+                                    >
+                                        + Add Application
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        {% endif %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

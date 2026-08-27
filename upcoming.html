@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CareerTrack | Upcoming</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <h2>CareerTrack</h2>
+
+        <nav>
+
+            <a href="/">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="/applications">
+                <span>▣</span>
+                Applications
+            </a>
+
+            <a href="/upcoming" class="active">
+                <span>◷</span>
+                Upcoming
+            </a>
+
+            <a href="/add">
+                <span>＋</span>
+                Add Application
+            </a>
+
+            <a href="#">
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- Main Content -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="page-label">
+                    CAREER MANAGEMENT
+                </p>
+
+                <h1>
+                    Upcoming
+                </h1>
+
+                <p>
+                    Keep track of upcoming interviews and follow-ups.
+                </p>
+
+            </div>
+
+            <a href="/add" class="add-btn">
+                + Add Application
+            </a>
+
+        </header>
+
+
+        <!-- Interview Section -->
+
+        <section class="dashboard-panel upcoming-panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Upcoming Interviews</h2>
+
+                    <p>
+                        Your scheduled interviews
+                    </p>
+                </div>
+
+            </div>
+
+
+            {% if interviews %}
+
+                <div class="upcoming-list">
+
+                    {% for interview in interviews %}
+
+                    <div class="upcoming-item">
+
+                        <div class="upcoming-icon interview-icon">
+                            I
+                        </div>
+
+                        <div class="upcoming-info">
+
+                            <strong>
+                                {{ interview["company"] }}
+                            </strong>
+
+                            <span>
+                                {{ interview["position"] }}
+                            </span>
+
+                            {% if interview["contact_person"] %}
+                            <small>
+                                Contact: {{ interview["contact_person"] }}
+                            </small>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="upcoming-date">
+
+                            <span>
+                                Interview
+                            </span>
+
+                            <strong>
+                                {{ interview["interview_date"] }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="upcoming-empty">
+
+                    <div class="empty-icon">
+                        I
+                    </div>
+
+                    <strong>
+                        No upcoming interviews
+                    </strong>
+
+                    <span>
+                        Scheduled interviews will appear here.
+                    </span>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- Follow-up Section -->
+
+        <section class="dashboard-panel upcoming-panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Follow-ups</h2>
+
+                    <p>
+                        Applications that need follow-up
+                    </p>
+                </div>
+
+            </div>
+
+
+            {% if follow_ups %}
+
+                <div class="upcoming-list">
+
+                    {% for follow_up in follow_ups %}
+
+                    <div class="upcoming-item">
+
+                        <div class="upcoming-icon followup-icon">
+                            F
+                        </div>
+
+                        <div class="upcoming-info">
+
+                            <strong>
+                                {{ follow_up["company"] }}
+                            </strong>
+
+                            <span>
+                                {{ follow_up["position"] }}
+                            </span>
+
+                            {% if follow_up["contact_person"] %}
+                            <small>
+                                Contact: {{ follow_up["contact_person"] }}
+                            </small>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="upcoming-date">
+
+                            <span>
+                                Follow-up
+                            </span>
+
+                            <strong>
+                                {{ follow_up["follow_up_date"] }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="upcoming-empty">
+
+                    <div class="empty-icon">
+                        F
+                    </div>
+
+                    <strong>
+                        No follow-ups scheduled
+                    </strong>
+
+                    <span>
+                        Follow-up dates will appear here.
+                    </span>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>

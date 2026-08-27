@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CareerTrack | Settings</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <h2>CareerTrack</h2>
+
+        <nav>
+
+            <a href="/">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="/applications">
+                <span>▣</span>
+                Applications
+            </a>
+
+            <a href="/add">
+                <span>＋</span>
+                Add Application
+            </a>
+
+            <a href="/settings" class="active">
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+                <p class="page-label">SYSTEM SETTINGS</p>
+
+                <h1>Settings</h1>
+
+                <p>
+                    Manage your CareerTrack preferences.
+                </p>
+            </div>
+
+        </header>
+
+
+        <section class="dashboard-panel settings-panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Application Preferences</h2>
+
+                    <p>
+                        Basic preferences for your career tracking system.
+                    </p>
+                </div>
+
+            </div>
+               <div class="settings-item">
+    <div>
+        <strong>Appearance</strong>
+        <span>Choose how CareerTrack looks.</span>
+    </div>
+
+    <select id="themeSelect" class="settings-select">
+        <option value="light">Light Mode</option>
+        <option value="dark">Dark Mode</option>
+    </select>
+</div>
+
+                <div>
+                    <strong>Application Tracking</strong>
+
+                    <span>
+                        Keep all your job applications organized in one place.
+                    </span>
+                </div>
+
+                <span class="settings-status">
+                    Active
+                </span>
+
+            </div>
+
+
+            <div class="settings-item">
+
+                <div>
+                    <strong>Interview Tracking</strong>
+
+                    <span>
+                        Track scheduled interviews and important dates.
+                    </span>
+                </div>
+
+                <span class="settings-status">
+                    Active
+                </span>
+
+            </div>
+
+
+                        <div class="settings-item">
+
+                <div>
+                    <strong>Follow-up Tracking</strong>
+
+                    <span>
+                        Keep track of applications that need follow-up.
+                    </span>
+                </div>
+
+                <span class="settings-status">
+                    Active
+                </span>
+
+            </div>
+                        <!-- Accent Color -->
+
+            <div class="settings-item">
+
+                <div>
+                    <strong>Accent Color</strong>
+
+                    <span>
+                        Choose your preferred CareerTrack accent color.
+                    </span>
+                </div>
+
+                <select id="colorSelect" class="settings-select">
+                    <option value="blue">Blue</option>
+                    <option value="purple">Purple</option>
+                    <option value="green">Green</option>
+                </select>
+
+            </div>
+
+
+            <!-- Reset Preferences -->
+
+            <div class="settings-item">
+
+                <div>
+                    <strong>Reset Preferences</strong>
+
+                    <span>
+                        Restore CareerTrack appearance settings to default.
+                    </span>
+                </div>
+
+                <button
+                    type="button"
+                    id="resetSettingsBtn"
+                    class="reset-btn">
+                    Reset
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
