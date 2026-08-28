@@ -167,6 +167,19 @@ http://127.0.0.1:5000
 ```
 
 ---
+## 📸 Screenshots
+
+### Dashboard
+![CareerTrack Dashboard](screenshots/dashboard.png)
+
+### Applications
+![CareerTrack Application](screenshots/application.png)
+
+### Add Application
+![Add Application](screenshots/add-application.png)
+
+### Settings
+![CareerTrack Setting](screenshots/setting.png)
 
 ## 🖥️ Application Pages
 
