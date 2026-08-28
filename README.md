@@ -176,7 +176,7 @@ http://127.0.0.1:5000
 ![CareerTrack Application](screenshots/application.png)
 
 ### Add Application
-![Add Application](screenshots/add-application.png)
+![Add Application](screenshots/add application.png)
 
 ### Settings
 ![CareerTrack Setting](screenshots/setting.png)
